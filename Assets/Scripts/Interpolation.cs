@@ -10,6 +10,8 @@ public class Interpolation : MonoBehaviour
     public enum interType
     {
         lerp,
+        bezier,
+        catmullRom,
         easeIn1,
         easeIn2,
         easeIn3,
@@ -33,15 +35,144 @@ public class Interpolation : MonoBehaviour
         easeInOutBounce3
     }
 
-    // SELF DEFINED
+    // multiplies a 4 x 4 matrix by a value. (value times matrix)
+    public static Matrix4x4 Matrix4x4Multiply(float val, Matrix4x4 m)
+    {
+        Matrix4x4 mx = new Matrix4x4();
+
+        // calculation
+        mx.SetRow(0, new Vector4(val * m.m00, val * m.m01, val * m.m02, val * m.m03));
+        mx.SetRow(1, new Vector4(val * m.m10, val * m.m11, val * m.m12, val * m.m13));
+        mx.SetRow(2, new Vector4(val * m.m20, val * m.m21, val * m.m22, val * m.m23));
+        mx.SetRow(3, new Vector4(val * m.m30, val * m.m31, val * m.m32, val * m.m33));
+
+        return mx;
+    }
+
+    // multiplies m1 by m2 (matrix multiplication)
+    public static Matrix4x4 Matrix4x4Multiply(Matrix4x4 m1, Matrix4x4 m2)
+    {
+        Matrix4x4 mx; // temporary matrix
+
+        // calculation
+        mx.m00 = Vector4.Dot(m1.GetRow(0), m2.GetColumn(0));
+        mx.m01 = Vector4.Dot(m1.GetRow(0), m2.GetColumn(1));
+        mx.m02 = Vector4.Dot(m1.GetRow(0), m2.GetColumn(2));
+        mx.m03 = Vector4.Dot(m1.GetRow(0), m2.GetColumn(3));
+
+        mx.m10 = Vector4.Dot(m1.GetRow(1), m2.GetColumn(0));
+        mx.m11 = Vector4.Dot(m1.GetRow(1), m2.GetColumn(1));
+        mx.m12 = Vector4.Dot(m1.GetRow(1), m2.GetColumn(2));
+        mx.m13 = Vector4.Dot(m1.GetRow(1), m2.GetColumn(3));
+
+        mx.m20 = Vector4.Dot(m1.GetRow(2), m2.GetColumn(0));
+        mx.m21 = Vector4.Dot(m1.GetRow(2), m2.GetColumn(1));
+        mx.m22 = Vector4.Dot(m1.GetRow(2), m2.GetColumn(2));
+        mx.m23 = Vector4.Dot(m1.GetRow(2), m2.GetColumn(3));
+
+        mx.m30 = Vector4.Dot(m1.GetRow(3), m2.GetColumn(0));
+        mx.m31 = Vector4.Dot(m1.GetRow(3), m2.GetColumn(1));
+        mx.m32 = Vector4.Dot(m1.GetRow(3), m2.GetColumn(2));
+        mx.m33 = Vector4.Dot(m1.GetRow(3), m2.GetColumn(3));
+
+        return mx;
+    }
+
+
+    // INTERPOLATION //
+
+    // SELF DEFINED //
     // 0. LERP - linear interpolation (standard)
     public static Vector3 Lerp(Vector3 v1, Vector3 v2, float t) 
     { 
         return ((1.0F - t) * v1 + t * v2); 
     }
 
+    // CURVES //
+    // BEZIER - curve that uses handles for movement.
+    public static Vector3 Bezier(Vector3 p1, Vector3 t1, Vector3 t2, Vector3 p2, float u)
+    {
+        // bezier matrix
+        Matrix4x4 matBezier = new Matrix4x4();
+
+        matBezier.SetRow(0, new Vector4(-1, 3, -3, 1));
+        matBezier.SetRow(1, new Vector4(3, -6, 3, 0));
+        matBezier.SetRow(2, new Vector4(-3, 3, 0, 0));
+        matBezier.SetRow(3, new Vector4(1, 0, 0, 0));
 
 
+        // result matrix from a calculation. 
+        Matrix4x4 result;
+
+        // the two points on the line, and their control points
+        Matrix4x4 pointsMat = new Matrix4x4();
+
+        pointsMat.SetRow(0, new Vector4(p1.x, p1.y, p1.z, 0));
+        pointsMat.SetRow(1, new Vector4(t1.x, t1.y, t1.z, 0));
+        pointsMat.SetRow(2, new Vector4(t2.x, t2.y, t2.z, 0));
+        pointsMat.SetRow(3, new Vector4(p2.x, p2.y, p2.z, 0));
+
+
+        // matrix for 'u' to the exponent 0 through 3.
+        Matrix4x4 uMat = new Matrix4x4(); // the matrix for 'u' (also called 't').
+
+        // setting the 'u' values to the proper row, since this is being used as a 1 X 4 matrix.
+        // the exponent values are being applied as well.
+        uMat.SetRow(0, new Vector4(Mathf.Pow(u, 3), Mathf.Pow(u, 2), Mathf.Pow(u, 1), Mathf.Pow(u, 0)));
+
+        // doing the bezier calculation
+        // order of [u^3, u^2, u, 0] * M * <points matrix>
+        result = Matrix4x4Multiply(matBezier, pointsMat); // bezier matrix * points matrix
+        result = Matrix4x4Multiply(uMat, result); // u matrix * (bezier matrix * points matrix)
+
+        // the needed values are stored at the top of the result matrix.
+        return result.GetRow(0);
+    }
+
+    // CATMULL ROM - curve that travels along 4 points.
+    public static Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float u)
+    {
+        // the catmull-rom matrix, which has a 0.5F scalar applied from the start.
+        Matrix4x4 matCatmullRom = new Matrix4x4();
+
+        // setting the rows
+        matCatmullRom.SetRow(0, new Vector4(0.5F * -1.0F, 0.5F * 3.0F, 0.5F * -3.0F, 0.5F * 1.0F));
+        matCatmullRom.SetRow(1, new Vector4(0.5F * 2.0F, 0.5F * -5.0F, 0.5F * 4.0F, 0.5F * -1.0F));
+        matCatmullRom.SetRow(2, new Vector4(0.5F * -1.0F, 0.5F * 0.0F, 0.5F * 1.0F, 0.5F * 0.0F));
+        matCatmullRom.SetRow(3, new Vector4(0.5F * 0.0F, 0.5F * 2.0F, 0.5F * 0.0F, 0.5F * 0.0F));
+
+
+        // Points
+        Matrix4x4 pointsMat = new Matrix4x4();
+
+        pointsMat.SetRow(0, new Vector4(p0.x, p0.y, p0.z, 0));
+        pointsMat.SetRow(1, new Vector4(p1.x, p1.y, p1.z, 0));
+        pointsMat.SetRow(2, new Vector4(p2.x, p2.y, p2.z, 0));
+        pointsMat.SetRow(3, new Vector4(p3.x, p3.y, p3.z, 0));
+
+
+        // matrix for u to the power of given functions.
+        Matrix4x4 uMat = new Matrix4x4(); // the matrix for 'u' (also called 't').
+
+        // setting the 'u' values to the proper row, since this is being used as a 1 X 4 matrix.
+        uMat.SetRow(0, new Vector4(Mathf.Pow(u, 3), Mathf.Pow(u, 2), Mathf.Pow(u, 1), Mathf.Pow(u, 0)));
+
+        // result matrix from a calculation. 
+        Matrix4x4 result;
+
+        // order of [u^3, u^2, u, 0] * M * <points matrix>
+        // the catmull-rom matrix has already had the (1/2) scalar applied.
+        result = Matrix4x4Multiply(matCatmullRom, pointsMat);
+
+        result = Matrix4x4Multiply(uMat, result); // [u^3, u^2, u, 0] * (M * points)
+
+        // the resulting values are stored at the top.
+        return result.GetRow(0);
+    }
+
+
+
+    // EXTRAS //
     // EaseIn Operation
     public static Vector3 EaseIn(Vector3 v1, Vector3 v2, float t, float pow)
     {
@@ -237,7 +368,28 @@ public class Interpolation : MonoBehaviour
     }
 
     // Interpolate by Type
+    // if an interpolation type that takes in four nodes is provided, v1 will be v1 and v2, and v3 will be v3 and v4.
+    // if an interpolation type that takes two nodes is provided, it will simply use v1 and v2.
     public Vector3 InterpolateByType(interType type, Vector3 v1, Vector3 v2, float t)
+    {
+        switch(type)
+        {
+            // curves (4 points)
+            case interType.bezier:
+            case interType.catmullRom:
+                return InterpolateByType(type, v1, v1, v2, v2, t);
+                break;
+
+            // other (2 points)
+            default:
+                return InterpolateByType(type, v1, v2, v1, v2, t);
+                break;
+        }
+    }
+
+    // Interpolate by Type
+    // if the interpolation type only takes 2, it will take v1 and v2.
+    public Vector3 InterpolateByType(interType type, Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, float t)
     {
         Vector3 result; // result of operation
 
@@ -247,7 +399,12 @@ public class Interpolation : MonoBehaviour
             case interType.lerp:
                 result = Lerp(v1, v2, t);
                 break;
-            
+            case interType.bezier:
+                result = Bezier(v1, v2, v3, v4, t);
+                break;
+            case interType.catmullRom:
+                result = CatmullRom(v1, v2, v3, v4, t);
+                break;
             case interType.easeIn1:
                 result = EaseIn1(v1, v2, t);
                 break;
@@ -339,16 +496,4 @@ public class Interpolation : MonoBehaviour
 
         return result;
     }
-    
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     
-    // }
-    // 
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //     
-    // }
 }

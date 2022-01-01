@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// the player, which is used to click on and interact with items.
-public class Player : MonoBehaviour
+public class Goal : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
