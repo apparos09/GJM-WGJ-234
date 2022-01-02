@@ -378,12 +378,12 @@ public class Interpolation : MonoBehaviour
             case interType.bezier:
             case interType.catmullRom:
                 return InterpolateByType(type, v1, v1, v2, v2, t);
-                break;
+                // break;
 
             // other (2 points)
             default:
                 return InterpolateByType(type, v1, v2, v1, v2, t);
-                break;
+                // break;
         }
     }
 

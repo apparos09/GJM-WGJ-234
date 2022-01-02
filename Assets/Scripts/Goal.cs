@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// the end goal of the stage.
 public class Goal : MonoBehaviour
 {
     // Start is called before the first frame update

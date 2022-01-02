@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// scene assit script
+// scene assist script
 public class SceneHelper : MonoBehaviour
 {
     // changes the scene using the scene number.

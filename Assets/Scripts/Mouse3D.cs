@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// script for getting the mouse position.
 public class Mouse3D : MonoBehaviour
 {
     // Start is called before the first frame update

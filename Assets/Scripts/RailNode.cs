@@ -17,6 +17,7 @@ public class RailNode : MonoBehaviour
     // called when an object triggers this node.
     private void OnTriggerStay(Collider other)
     {
+
         // the rail car.
         RailCar rc;
 
@@ -28,6 +29,8 @@ public class RailNode : MonoBehaviour
                 rc.endNodeIndex = GetNodeIndex();
                 rc.startNodeIndex = rc.endNodeIndex - 1;
                 rc.AddRail(rail);
+
+                Debug.Log("Car Attached");
             }
         }
 
@@ -45,17 +48,18 @@ public class RailNode : MonoBehaviour
                 {
                     // connects the rails together.
                     // if this node is the last in the current rail, and the next node is the first in its rail.
-                    if(rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn.rail)
+                    if(rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn)
                     {
                         rail.ConnectRails(rn.rail, true);
                     }
-                    // if this node is the first in the current rail, and the next node is the last in its rail.
-                    else if (rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn.rail)
-                    {
-                        // this would end up triggering twice, so this part was taken out.
-                        // if this node is the first in the current rail, and the next node is the last in its rail.
-                        rn.rail.ConnectRails(rail, true);
-                    }
+
+                    // // if this node is the first in the current rail, and the next node is the last in its rail.
+                    // else if (rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn)
+                    // {
+                    //     // this would end up triggering twice, so this part was taken out.
+                    //     // if this node is the first in the current rail, and the next node is the last in its rail.
+                    //     rn.rail.ConnectRails(rail, true);
+                    // }
                 }
             }
         }
