@@ -91,16 +91,49 @@ public class Rail : MonoBehaviour
         r2.prevRail = this;
     }
 
+    // connects to next rail.
+    public void ConnectNextRail(Rail rail)
+    {
+        nextRail = rail;
+        rail.prevRail = rail;
+    }
+
+    // connects to previous rail.
+    public void ConnectPreviousRail(Rail rail)
+    {
+        prevRail = rail;
+        rail.nextRail = rail;
+    }
+
+    // disconnects next rail.
+    public void DisconnectNextRail()
+    {
+        if (nextRail == null)
+            return;
+
+        nextRail.prevRail = null;
+        nextRail = null;
+    }
+
+    // disconnects previous rail.
+    public void DisconnectPreviousRail()
+    {
+        if (prevRail == null)
+            return;
+
+        prevRail.nextRail = null;
+        prevRail = null;
+    }
+
     // has car shift rails. Direction is based on index values.
     // if prediction doesn't work, then it moves forward. Returns true if successful.
     public bool ShiftRails(RailCar car)
     {
-        if (car.startNodeIndex < car.endNodeIndex) // move forward
-            return ShiftRails(car, true);
-        else if (car.startNodeIndex > car.endNodeIndex) // move backward
+        if (car.reversed) // move backward
             return ShiftRails(car, false);
-        else
+        else // move forward
             return ShiftRails(car, true);
+
     }
 
     // if the car should shift rails. If 'forward' is 'true', then move forward.
@@ -178,11 +211,10 @@ public class Rail : MonoBehaviour
 
 
             // if the car should shift rails.
-            if(car.shiftRails)
+            if(AtEndOfRail(car) && car.shiftRails)
             {
-
+                ShiftRails(car);
             }
-
 
             // // if the car should loop along the rail.
             // if (car.loop && AtEndOfRail(car))

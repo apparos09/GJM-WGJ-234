@@ -14,6 +14,9 @@ public class RailCar : MonoBehaviour
     // if 'true', the rail car goes in reverse.
     public bool reversed = false;
 
+    // reveres once the rail car reaches the end.
+    // public bool reverseOnEnd = false;
+
     // if 'true', the car detaches once it reache the end.
     // 'loop' takes priority over this variable.
     public bool detachOnEnd = false;
@@ -121,7 +124,18 @@ public class RailCar : MonoBehaviour
         // runs the update.
         if(!paused && currRail != null)
         {
+            // if at the end.
             bool atEnd = currRail.AtEndOfRail(this);
+
+            // // if the car should reverse at the end.
+            // if (atEnd && reverseOnEnd)
+            // {
+            //     reversed = !reversed;
+            //     int temp = endNodeIndex;
+            //     endNodeIndex = startNodeIndex;
+            //     startNodeIndex = temp;
+            // }
+                
 
             // moved here so that it happens if the variable is changed.
             // for looping along the rail

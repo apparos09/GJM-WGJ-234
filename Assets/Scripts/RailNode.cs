@@ -15,7 +15,7 @@ public class RailNode : MonoBehaviour
     }
 
     // called when an object triggers this node.
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // the rail car.
         RailCar rc;
@@ -57,6 +57,31 @@ public class RailNode : MonoBehaviour
                         rn.rail.ConnectRails(rail, true);
                     }
                 }
+            }
+        }
+    }
+
+    // called when exiting a trigger.
+    private void OnTriggerExit(Collider other)
+    {
+        // disconnects rails if the rail is not null.
+        if (rail != null)
+        {
+            // the rail node.
+            RailNode rn;
+
+            // trys to grab the rail node.
+            if (other.gameObject.TryGetComponent<RailNode>(out rn))
+            {
+                if (rail.nextRail == rn.rail) // next rail in the line.
+                {
+                    rail.DisconnectNextRail();
+                }
+                else if (rail.prevRail == rn.rail) // previous rail in the line.
+                {
+                    rail.DisconnectPreviousRail();
+                }
+                
             }
         }
     }
