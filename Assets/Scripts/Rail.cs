@@ -11,9 +11,16 @@ public class Rail : MonoBehaviour
     // the list of nodes.
     public List<RailNode> nodes = new List<RailNode>();
 
+    // the next rail, which is locked to the end of the rail.
+    public Rail nextRail;
+
+    // the previous rail, which is locked to the start of the rail.
+    public Rail prevRail;
+
     // Start is called before the first frame update
     void Start()
     {
+        // adds the children.
         if (addChildren)
         {
             List<RailNode> temp = new List<RailNode>();
@@ -24,7 +31,7 @@ public class Rail : MonoBehaviour
         // goes through each node.
         foreach(RailNode node in nodes)
         {
-            node.rail = this;
+            node.SetRail(this);
         }
     }
 
@@ -41,6 +48,24 @@ public class Rail : MonoBehaviour
         return -1;
     }
 
+    // gets the first node.
+    public RailNode GetFirstNode()
+    {
+        if (nodes.Count > 0)
+            return nodes[0];
+        else
+            return null;
+    }
+
+    // gets the last node.
+    public RailNode GetLastNode()
+    {
+        if (nodes.Count > 0)
+            return nodes[nodes.Count - 1];
+        else
+            return null;
+    }
+
     // returns 'true' if the car is at the end o the rail.
     public bool AtEndOfRail(RailCar car)
     {
@@ -49,7 +74,7 @@ public class Rail : MonoBehaviour
             return false;
 
         // gets the last node.
-        int lastNodeIndex = nodes.Count - 1;
+        int lastNodeIndex = (car.reversed) ? 0 : nodes.Count - 1;
         RailNode lastNode = nodes[lastNodeIndex];
 
         bool result = (car.transform.position == lastNode.transform.position &&
@@ -58,10 +83,19 @@ public class Rail : MonoBehaviour
         return result;
     }
 
+    // connects two rails. This makes r2 come after rail 1.
+    // if 'disconnect' is set to 'true', then it overrides existing rail connections.
+    public void ConnectRails(Rail r2, bool disconnect)
+    {
+        nextRail = r2;
+        r2.prevRail = this;
+    }
+
     // runs the interpolation along the rail, returning 'true' if the car moved.
     public bool Run(RailCar car)
     {
         // TODO: adjust it so that it goes at the same speed throughout.
+        // TODO: make the reverse happen mid movement instead of waiting until the end.
 
         // nodes
         RailNode n1 = null, n2 = null;
@@ -85,17 +119,27 @@ public class Rail : MonoBehaviour
         Vector3 nextPos = Vector3.Lerp(n1.transform.position, n2.transform.position, car.IncrementT(Time.deltaTime));
         car.transform.position = nextPos;
 
-        // reached the end of the current link, so move onto the next one.
+        // reached the end of the current chain, so move onto the next one.
         if(car.t_value >= 1.0F)
         {
             car.t_value = 0.0F;
-
             car.startNodeIndex = car.endNodeIndex;
-            car.endNodeIndex++;
+
+            if (!car.reversed) // going forward
+            {
+                car.endNodeIndex++;
+            }
+            else if(car.reversed) // going backwards
+            {
+                car.endNodeIndex--;
+            }
+
 
             // // if the car should loop along the rail.
             // if (car.loop && AtEndOfRail(car))
             //     car.destNodeIndex = 0;
+
+
 
             return true;
         }

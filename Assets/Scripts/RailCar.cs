@@ -11,6 +11,13 @@ public class RailCar : MonoBehaviour
     // if 'true', the rail car loops around the track.
     public bool loop = false;
 
+    // if 'true', the rail car goes in reverse.
+    public bool reversed = false;
+
+    // if 'true', the car detaches once it reache the end.
+    // 'loop' takes priority over this variable.
+    public bool detachOnEnd = false;
+
     // a rigidbody for the rail car.
     public Rigidbody rigidBody;
 
@@ -19,14 +26,8 @@ public class RailCar : MonoBehaviour
     // // if 't' 
     // public bool saveLastRails;
 
-    // the next rails that will be travelled along.
-    public Queue<Rail> nextRails;
-
     // the current rail the rail car is on.
     public Rail currRail;
-
-    // the rails already passed.
-    public Stack<Rail> lastRails;
 
     // the current index
     public int startNodeIndex = 0;
@@ -39,6 +40,7 @@ public class RailCar : MonoBehaviour
     public float t_value;
 
     // multiplier for the t-value incrementation.
+    // this should always be positive.
     public float t_mult = 1.0F;
 
     // Start is called before the first frame update
@@ -47,6 +49,14 @@ public class RailCar : MonoBehaviour
         // rigid body not set.
         if (rigidBody == null)
             rigidBody = GetComponent<Rigidbody>();
+
+        // going in reverse, so swap around nodes.
+        if(reversed && endNodeIndex > startNodeIndex)
+        {
+            int temp = endNodeIndex;
+            endNodeIndex = startNodeIndex;
+            startNodeIndex = temp;
+        }
     }
 
     // adds a rail for the car to go along.
@@ -91,7 +101,7 @@ public class RailCar : MonoBehaviour
     public float IncrementT(float value, bool clamp01 = true)
     {
         // increments the t-value.
-        t_value += value * t_mult;
+        t_value += value * Mathf.Abs(t_mult);
 
         // clamps value.
         if (clamp01)
@@ -108,10 +118,34 @@ public class RailCar : MonoBehaviour
         // runs the update.
         if(!paused && currRail != null)
         {
+            bool atEnd = currRail.AtEndOfRail(this);
+
             // moved here so that it happens if the variable is changed.
-            if (loop && currRail.AtEndOfRail(this) && 
-                startNodeIndex >= currRail.nodes.Count - 1)
-                endNodeIndex = 0;
+            // for looping along the rail
+            if (loop && atEnd)
+            {
+                // checks if at the end of the rail.
+                if(!reversed && startNodeIndex >= currRail.nodes.Count - 1) // moving forward
+                {
+                    endNodeIndex = 0;
+                }
+                else if (reversed && startNodeIndex <= 0) // moving backwards
+                {
+                    endNodeIndex = currRail.nodes.Count - 1;
+                }
+            }
+            else if(!loop && atEnd && detachOnEnd) // detach from rail.
+            {
+                currRail = null;
+
+                // gives rigidbody its gravity back.
+                // if more fleshed out, it would need to be known if this was enabled to begin with.
+                // however, this should be fine.
+                if (rigidBody != null)
+                    rigidBody.useGravity = true;
+
+                return;
+            }
 
             currRail.Run(this);
         }

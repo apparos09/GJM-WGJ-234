@@ -647,7 +647,6 @@ GameObject:
   - component: {fileID: 1146434865}
   - component: {fileID: 1146434864}
   - component: {fileID: 1146434863}
-  - component: {fileID: 1146434868}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -669,12 +668,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: 0
   loop: 1
+  reversed: 0
+  detachOnEnd: 0
   rigidBody: {fileID: 0}
   currRail: {fileID: 1962302549}
   startNodeIndex: 0
   endNodeIndex: 1
   t_value: 0
-  t_mult: 1
+  t_mult: 0.5
 --- !u!65 &1146434864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -752,22 +753,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1146434868
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146434862}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1537772487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -892,6 +877,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addChildren: 1
   nodes: []
+  nextRail: {fileID: 0}
+  prevRail: {fileID: 0}
 --- !u!4 &1962302550
 Transform:
   m_ObjectHideFlags: 0
