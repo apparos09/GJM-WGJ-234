@@ -18,6 +18,9 @@ public class RailCar : MonoBehaviour
     // 'loop' takes priority over this variable.
     public bool detachOnEnd = false;
 
+    // if 'true', the car shifts through rails that are connected.
+    public bool shiftRails = true;
+
     // a rigidbody for the rail car.
     public Rigidbody rigidBody;
 

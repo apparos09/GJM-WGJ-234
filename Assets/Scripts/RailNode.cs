@@ -47,15 +47,15 @@ public class RailNode : MonoBehaviour
                     // if this node is the last in the current rail, and the next node is the first in its rail.
                     if(rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn.rail)
                     {
-
+                        rail.ConnectRails(rn.rail, true);
                     }
-
-                    // this would end up triggering twice, so this part was taken out.
                     // if this node is the first in the current rail, and the next node is the last in its rail.
-                    // else if (rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn.rail)
-                    // {
-                    // 
-                    // }
+                    else if (rail.GetLastNode() == this && rn.rail.GetFirstNode() == rn.rail)
+                    {
+                        // this would end up triggering twice, so this part was taken out.
+                        // if this node is the first in the current rail, and the next node is the last in its rail.
+                        rn.rail.ConnectRails(rail, true);
+                    }
                 }
             }
         }

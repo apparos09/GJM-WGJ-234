@@ -91,6 +91,48 @@ public class Rail : MonoBehaviour
         r2.prevRail = this;
     }
 
+    // has car shift rails. Direction is based on index values.
+    // if prediction doesn't work, then it moves forward. Returns true if successful.
+    public bool ShiftRails(RailCar car)
+    {
+        if (car.startNodeIndex < car.endNodeIndex) // move forward
+            return ShiftRails(car, true);
+        else if (car.startNodeIndex > car.endNodeIndex) // move backward
+            return ShiftRails(car, false);
+        else
+            return ShiftRails(car, true);
+    }
+
+    // if the car should shift rails. If 'forward' is 'true', then move forward.
+    // if 'forward' is false, then the car moves backwards.
+    public bool ShiftRails(RailCar car, bool forward)
+    {
+        if(forward) // move forward
+        {
+            // next rail does not exist.
+            if (nextRail == null)
+                return false;
+
+            car.currRail = nextRail;
+            car.startNodeIndex = 0;
+            car.endNodeIndex = car.startNodeIndex + 1;
+
+            return true;
+        }
+        else // move backward
+        {
+            // next rail does not exist.
+            if (prevRail == null)
+                return false;
+
+            car.currRail = prevRail;
+            car.startNodeIndex = prevRail.nodes.Count - 1;
+            car.endNodeIndex = car.startNodeIndex - 1;
+
+            return true;
+        }
+    }
+
     // runs the interpolation along the rail, returning 'true' if the car moved.
     public bool Run(RailCar car)
     {
@@ -135,11 +177,16 @@ public class Rail : MonoBehaviour
             }
 
 
+            // if the car should shift rails.
+            if(car.shiftRails)
+            {
+
+            }
+
+
             // // if the car should loop along the rail.
             // if (car.loop && AtEndOfRail(car))
             //     car.destNodeIndex = 0;
-
-
 
             return true;
         }
