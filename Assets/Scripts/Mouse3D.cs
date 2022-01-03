@@ -9,6 +9,9 @@ using UnityEngine;
 // script for getting the mouse position.
 public class Mouse3D : MonoBehaviour
 {
+    // the object that has been clicked. This variable gets set to null when the mouse button is released.
+    public GameObject clickedObject = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +90,9 @@ public class Mouse3D : MonoBehaviour
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
                 // tries to get a hit. Since it's orthographic, the ray goes straight forward.
-                target = Vector3.forward; // target is into the screen.
+                // target = Vector3.forward; // target is into the screen.
+                target = Camera.main.transform.forward; // target is into the screen (camera forward).
+
                 ray = new Ray(mouseWorldPos, target.normalized); // ray position is mouse position in world space.
                 rayHit = Physics.Raycast(ray, out hitInfo, Camera.main.farClipPlane - Camera.main.nearClipPlane);
             }
@@ -100,8 +105,14 @@ public class Mouse3D : MonoBehaviour
 
             // hit.collider.gameObject.tag
             if(rayHit)
-                Debug.Log(hitInfo.collider.gameObject.name);
-
+            {
+                clickedObject = hitInfo.collider.gameObject;
+                // Debug.Log(hitInfo.collider.gameObject.name);
+            }     
+        }
+        else if(Input.GetKeyUp(KeyCode.Mouse0)) // mouse button released.
+        {
+            clickedObject = null;
         }
 
     }

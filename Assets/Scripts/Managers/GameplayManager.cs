@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // the manager for the game.
 public class GameplayManager : MonoBehaviour
@@ -17,15 +18,15 @@ public class GameplayManager : MonoBehaviour
     }
 
     // called when the goal is reached.
-    public void OnGoalReach()
+    public void OnGoalReached()
     {
-
+        // OnGameEnd();
     }
 
     // called wehn the game ends.
-    public void OnGameEnd(bool won)
+    public void OnGameEnd()
     {
-
+        SceneManager.LoadScene("TitleScene");
     }
 
 
