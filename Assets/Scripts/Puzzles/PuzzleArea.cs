@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // the puzzle area.
+// NOTE: MAKE SURE THE WALLS ARE BIG ENOUGH THAT TILES THAT DON'T GO THROUGH.
 public class PuzzleArea : MonoBehaviour
 {
     // the player object.
@@ -18,10 +19,10 @@ public class PuzzleArea : MonoBehaviour
     public PuzzleAreaExit areaExit;
 
     // the gate for entering the puzzle.
-    public GameObject enterGate;
+    public PuzzleGate enterGate;
 
     // the gate for exiting the puzzle.
-    public GameObject exitGate;
+    public PuzzleGate exitGate;
 
     // camera details
     [Header("Camera")]
@@ -63,29 +64,22 @@ public class PuzzleArea : MonoBehaviour
             areaExit.area = this;
 
         // entrance gate not set, so try to find it.
-        if (enterGate == null)
+        if (enterGate == null || exitGate == null)
         {
-            Transform temp = transform.Find("Enter Gate");
+            PuzzleGate[] gates = GetComponentsInChildren<PuzzleGate>();
 
-            if (temp == null)
-                temp = transform.Find("Entrance Gate");
+            // gates found.
+            if(gates.Length > 0)
+            {
+                // gets first gate.
+                if (enterGate == null)
+                    enterGate = gates[0];
 
-            if (temp != null)
-                enterGate = temp.gameObject;
+                // gets last gate.
+                if (exitGate == null)
+                    exitGate = gates[gates.Length - 1];
+            }
         }
-
-        // exit gate not set, so try to find it.
-        if(exitGate == null)
-        {
-            Transform temp = transform.Find("Exit Gate");
-
-            if (temp == null)
-                temp = transform.Find("Exiting Gate");
-
-            if(temp != null)
-                exitGate = temp.gameObject;
-        }
-
     }
 
     // called when entering the area.
@@ -100,10 +94,10 @@ public class PuzzleArea : MonoBehaviour
 
         // activate the gates.
         if (enterGate != null)
-            enterGate.SetActive(true);
+            enterGate.gameObject.SetActive(true);
 
         if (exitGate != null)
-            exitGate.SetActive(true);
+            exitGate.gameObject.SetActive(true);
     }
 
     // called when the player tries to the puzzle.
@@ -112,12 +106,13 @@ public class PuzzleArea : MonoBehaviour
     {
         // deactivate the gates.
         if (enterGate != null)
-            enterGate.SetActive(false);
+            enterGate.gameObject.SetActive(false);
 
         if (exitGate != null)
-            exitGate.SetActive(false);
+            exitGate.gameObject.SetActive(false);
 
-        // trying the puzzle, so mouse options are disabled.
+        // trying the puzzle, so car should move, and mouse options are disabled.
+        player.car.paused = false;
         player.mouseEnabled = false;
     }
 
@@ -133,17 +128,23 @@ public class PuzzleArea : MonoBehaviour
     {
         // reactivate the gates.
         if (enterGate != null)
-            enterGate.SetActive(true);
+            enterGate.gameObject.SetActive(true);
 
         if (exitGate != null)
-            exitGate.SetActive(true);
+            exitGate.gameObject.SetActive(true);
 
-        // resets the car position.
+        // resets the car position, its indexes, its time, and pauses its movement.
         player.car.transform.position = areaEntrance.carResetPos;
+        player.car.startNodeIndex = areaEntrance.carResetStartIndex;
+        player.car.endNodeIndex = areaEntrance.carResetEndIndex;
+        player.car.t_value = 0;
+        player.car.paused = true;
 
         // mouse is enabled again.
         player.mouseEnabled = true;
     }
+
+    // TODO: add reset function
 
     public void ChangeCameraSettings()
     {

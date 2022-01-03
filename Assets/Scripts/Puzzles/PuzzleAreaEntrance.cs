@@ -14,6 +14,12 @@ public class PuzzleAreaEntrance : MonoBehaviour
     // the reset position for the car.
     public Vector3 carResetPos;
 
+    // reset for car's start index.
+    public int carResetStartIndex = 0;
+
+    // reset for car's end index.
+    public int carResetEndIndex = 1;
+
     // if 'true', the entrance locks cars.
     public bool lockCar = true;
 
@@ -74,6 +80,8 @@ public class PuzzleAreaEntrance : MonoBehaviour
 
         // saves the reset position.
         carResetPos = car.transform.position;
+        carResetStartIndex = car.startNodeIndex;
+        carResetEndIndex = car.endNodeIndex;
 
         area.OnPuzzleStart();
     }

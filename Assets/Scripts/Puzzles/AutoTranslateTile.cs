@@ -5,9 +5,6 @@ using UnityEngine;
 // a puzzle tile that slides on its own. 
 public class AutoTranslateTile : PuzzleTile
 {
-    // the tile's rigidbody.
-    public Rigidbody rigidBody;
-
     // speed of tile's movement.
     public float speed = 5;
 
@@ -23,40 +20,37 @@ public class AutoTranslateTile : PuzzleTile
     // Start is called before the first frame update
     void Start()
     {
-        // tries to grab component.
-        if (rigidBody == null)
-            rigidBody = GetComponent<Rigidbody>();
+        base.Start();
+    }
 
-        // gets component.
-        if (rigidBody == null)
-            gameObject.AddComponent<Rigidbody>();
+    // if entering a collision with a wall.
+    protected void OnCollisionEnter(Collision collision)
+    {
+        // parent collision check.
+        base.OnCollisionEnter(collision);
+
+        // stop moving, and change direction.
+        moving = false;
+        axis *= -1;
     }
 
     // mouse click.
-    public override void OnMouseButtonDown(Vector3 mouseWPos)
+    public override void OnMouseButtonDown(Mouse3D mouse3D)
     {
         moving = true;
         // Debug.Log("Test");
     }
 
     // mouse held.
-    public override void OnMouseButtonHeld(Vector3 mouseWPos)
+    public override void OnMouseButtonHeld(Mouse3D mouse3D)
     {
         // throw new System.NotImplementedException();
     }
 
     // mouse released.
-    public override void OnMouseButtonReleased(Vector3 mouseWPos)
+    public override void OnMouseButtonReleased(Mouse3D mouse3D)
     {
         // throw new System.NotImplementedException();
-    }
-
-    // if entering a collision with a wall.
-    private void OnCollisionEnter(Collision collision)
-    {
-        // stop moving, and change direction.
-        moving = false;
-        axis *= -1;
     }
 
     // Update is called once per frame

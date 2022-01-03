@@ -21,14 +21,36 @@ public class Mouse3D : MonoBehaviour
         
     }
 
+    // checks to see if the cursor is in the window.
+    public static bool MouseInWindow()
+    {
+        return MouseInWindow(Camera.main);
+    }
+
+    // checks to see if the cursor is in the window.
+    public static bool MouseInWindow(Camera cam)
+    {
+        // checks area
+        bool inX, inY;
+
+        // gets the viewport position
+        Vector3 viewPos = cam.ScreenToViewportPoint(Input.mousePosition);
+
+        // check horizontal an vertical.
+        inX = (viewPos.x >= 0 && viewPos.x <= 1.0);
+        inY = (viewPos.y >= 0 && viewPos.y <= 1.0);
+
+        return (inX && inY);
+    }
+
     // gets the mouse position in world space using the main camera.
-    public Vector3 GetMousePositionInWorldSpace()
+    public static Vector3 GetMousePositionInWorldSpace()
     {
         return GetMousePositionInWorldSpace(Camera.main);
     }
     
     // gets the mouse position in world space.
-    public Vector3 GetMousePositionInWorldSpace(Camera cam)
+    public static Vector3 GetMousePositionInWorldSpace(Camera cam)
     {
         // TODO: check and see if focal length is the best way to go about this.
         if(cam.orthographic) // orthographic (2d camera) - uses near clip plane so that it's guaranteed to be positive.
@@ -38,14 +60,14 @@ public class Mouse3D : MonoBehaviour
     }
 
     // gets the mosut target position in world space using the main camera.
-    public Vector3 GetMouseTargetPositionInWorldSpace(GameObject refObject)
+    public static Vector3 GetMouseTargetPositionInWorldSpace(GameObject refObject)
     {
         // return GetMouseTargetPositionInWorldSpace(Camera.main, refObject);
         return GetMouseTargetPositionInWorldSpace(Camera.main, refObject.transform.position);
     }
 
     // gets the mouse target position in world space.
-    public Vector3 GetMouseTargetPositionInWorldSpace(Camera cam, GameObject refObject)
+    public static Vector3 GetMouseTargetPositionInWorldSpace(Camera cam, GameObject refObject)
     {
         // Vector3 camWPos = GetMousePositionInWorldSpace(cam);
         // Vector3 target = camWPos - refObject.transform.position;
@@ -55,13 +77,13 @@ public class Mouse3D : MonoBehaviour
     }
 
     // gets the mouse target position in world space with a reference vector.
-    public Vector3 GetMouseTargetPositionInWorldSpace(Vector3 refPos)
+    public static Vector3 GetMouseTargetPositionInWorldSpace(Vector3 refPos)
     {
         return GetMouseTargetPositionInWorldSpace(Camera.main, refPos);
     }
 
     // gets the mouse target position in world space with a reference vector.
-    public Vector3 GetMouseTargetPositionInWorldSpace(Camera cam, Vector3 refPos)
+    public static Vector3 GetMouseTargetPositionInWorldSpace(Camera cam, Vector3 refPos)
     {
         Vector3 camWPos = GetMousePositionInWorldSpace(cam);
         Vector3 target = camWPos - refPos;
@@ -71,23 +93,6 @@ public class Mouse3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // // gets the mouse location.
-        // if(Camera.main.orthographic) // orthographic camera
-        // {
-        //     // gets the mouse position in world space, giving it the camera's near plane.
-        //     Vector3 mousePos = Input.mousePosition;
-        //     mousePos.z = Camera.main.nearClipPlane;
-        // 
-        //     // the mouse world position here will be the camera's position offset by the mouse's position.
-        //     // the z-value will be the camera's z plus the mouse's z-value.
-        //     mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        // }
-        // else // perspectice camera
-        // {
-        //     mouseWorldPosition = 
-        //         Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.focalLength));
-        // }
-
         // gets the mouse position.
         mouseWorldPosition = GetMousePositionInWorldSpace();
 

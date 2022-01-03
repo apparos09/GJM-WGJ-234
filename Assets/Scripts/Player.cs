@@ -96,17 +96,17 @@ public class Player : MonoBehaviour
                 // tries to grab component.
                 if (mouse3D.clickedObject.TryGetComponent<PuzzleTile>(out clickedTile))
                 {
-                    clickedTile.OnMouseButtonDown(mouse3D.mouseWorldPosition);
+                    clickedTile.OnMouseButtonDown(mouse3D);
                 }
             }
             else if (mouse3D.clickedObject != null && clickedTile != null) // mouse held
             {
                 if (mouse3D.clickedObject.gameObject == clickedTile.gameObject)
-                    clickedTile.OnMouseButtonHeld(mouse3D.mouseWorldPosition);
+                    clickedTile.OnMouseButtonHeld(mouse3D);
             }
             else if (mouse3D.clickedObject == null && clickedTile != null) // mouse released.
             {
-                clickedTile.OnMouseButtonReleased(mouse3D.mouseWorldPosition);
+                clickedTile.OnMouseButtonReleased(mouse3D);
                 clickedTile = null;
             }
         }
