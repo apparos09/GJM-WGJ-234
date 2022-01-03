@@ -1034,7 +1034,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1271,6 +1271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64764285212e42341a63bb6752c4ee50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseWorldPosition: {x: 0, y: 0, z: 0}
   clickedObject: {fileID: 0}
 --- !u!114 &1039268826
 MonoBehaviour:
@@ -1284,8 +1285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7950d176e4f2744e91d687a999b3fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 0}
   mouse3D: {fileID: 0}
   clickedTile: {fileID: 0}
+  cineCam: {fileID: 0}
+  puzzleCam: {fileID: 0}
 --- !u!1 &1146434862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64764285212e42341a63bb6752c4ee50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseWorldPosition: {x: 0, y: 0, z: 0}
   clickedObject: {fileID: 0}
 --- !u!114 &1146434869
 MonoBehaviour:
@@ -1433,8 +1438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7950d176e4f2744e91d687a999b3fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 0}
   mouse3D: {fileID: 0}
   clickedTile: {fileID: 0}
+  cineCam: {fileID: 0}
+  puzzleCam: {fileID: 0}
 --- !u!1001 &1151459720
 PrefabInstance:
   m_ObjectHideFlags: 0

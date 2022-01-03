@@ -33,20 +33,20 @@ public class AutoTranslateTile : PuzzleTile
     }
 
     // mouse click.
-    public override void OnMouseButtonDown()
+    public override void OnMouseButtonDown(Vector3 mouseWPos)
     {
         moving = true;
         // Debug.Log("Test");
     }
 
     // mouse held.
-    public override void OnMouseButtonHeld()
+    public override void OnMouseButtonHeld(Vector3 mouseWPos)
     {
         // throw new System.NotImplementedException();
     }
 
     // mouse released.
-    public override void OnMouseButtonReleased()
+    public override void OnMouseButtonReleased(Vector3 mouseWPos)
     {
         // throw new System.NotImplementedException();
     }

@@ -9,6 +9,9 @@ using UnityEngine;
 // script for getting the mouse position.
 public class Mouse3D : MonoBehaviour
 {
+    // the world position of the mouse.
+    public Vector3 mouseWorldPosition;
+
     // the object that has been clicked. This variable gets set to null when the mouse button is released.
     public GameObject clickedObject = null;
 
@@ -68,6 +71,26 @@ public class Mouse3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // // gets the mouse location.
+        // if(Camera.main.orthographic) // orthographic camera
+        // {
+        //     // gets the mouse position in world space, giving it the camera's near plane.
+        //     Vector3 mousePos = Input.mousePosition;
+        //     mousePos.z = Camera.main.nearClipPlane;
+        // 
+        //     // the mouse world position here will be the camera's position offset by the mouse's position.
+        //     // the z-value will be the camera's z plus the mouse's z-value.
+        //     mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+        // }
+        // else // perspectice camera
+        // {
+        //     mouseWorldPosition = 
+        //         Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.focalLength));
+        // }
+
+        // gets the mouse position.
+        mouseWorldPosition = GetMousePositionInWorldSpace();
+
         // when the left mouse button is clicked.
         // if(Input.GetAxisRaw("Fire1") != 0)
         // if (Input.GetMouseButtonDown(0))
@@ -81,22 +104,16 @@ public class Mouse3D : MonoBehaviour
             // checks if the camera is perspective or orthographic.
             if (Camera.main.orthographic) // orthographic
             {
-                // gets the mouse position in world space, giving it the camera's near plane.
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = Camera.main.nearClipPlane;
-
-                // the mouse world position here will be the camera's position offset by the mouse's position.
-                // the z-value will be the camera's z plus the mouse's z-value.
-                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
                 // tries to get a hit. Since it's orthographic, the ray goes straight forward.
-                // target = Vector3.forward; // target is into the screen.
                 target = Camera.main.transform.forward; // target is into the screen (camera forward).
 
-                ray = new Ray(mouseWorldPos, target.normalized); // ray position is mouse position in world space.
+                // ray position is mouse position in world space.
+                ray = new Ray(mouseWorldPosition, target.normalized);
+
+                // cast the ray.
                 rayHit = Physics.Raycast(ray, out hitInfo, Camera.main.farClipPlane - Camera.main.nearClipPlane);
             }
-            else // perspective.
+            else // perspective
             {
                 target = GetMouseTargetPositionInWorldSpace(Camera.main.gameObject);
                 ray = new Ray(Camera.main.transform.position, target.normalized);
