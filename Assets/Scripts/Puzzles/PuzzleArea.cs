@@ -8,11 +8,20 @@ public class PuzzleArea : MonoBehaviour
     // the player object.
     public Player player;
 
+    // the puzzle
+    [Header("Puzzle")]
+
     // the entrance into this area.
     public PuzzleAreaEntrance areaEntrance;
 
     // the exit into this area.
     public PuzzleAreaExit areaExit;
+
+    // the gate for entering the puzzle.
+    public GameObject enterGate;
+
+    // the gate for exiting the puzzle.
+    public GameObject exitGate;
 
     // camera details
     [Header("Camera")]
@@ -53,16 +62,63 @@ public class PuzzleArea : MonoBehaviour
         if (areaExit != null)
             areaExit.area = this;
 
+        // entrance gate not set, so try to find it.
+        if (enterGate == null)
+        {
+            Transform temp = transform.Find("Enter Gate");
+
+            if (temp == null)
+                temp = transform.Find("Entrance Gate");
+
+            if (temp != null)
+                enterGate = temp.gameObject;
+        }
+
+        // exit gate not set, so try to find it.
+        if(exitGate == null)
+        {
+            Transform temp = transform.Find("Exit Gate");
+
+            if (temp == null)
+                temp = transform.Find("Exiting Gate");
+
+            if(temp != null)
+                exitGate = temp.gameObject;
+        }
+
     }
 
     // called when entering the area.
     public void OnPuzzleStart()
     {
+        // enables the puzzle camera.
         player.EnablePuzzleCamera();
 
         // if camera settings should be adjusted when the puzzle starts.
         if (adjustCamSettings)
             ChangeCameraSettings();
+
+        // activate the gates.
+        if (enterGate != null)
+            enterGate.SetActive(true);
+
+        if (exitGate != null)
+            exitGate.SetActive(true);
+    }
+
+    // called when the player tries to the puzzle.
+    // puzzle pieces cannot moved at this state.
+    public void OnPuzzleTry()
+    {
+        // deactivate the gates.
+        if (enterGate != null)
+            enterGate.SetActive(false);
+
+        if (exitGate != null)
+            exitGate.SetActive(false);
+
+        // trying the puzzle, so mouse options are disabled.
+        player.mouseEnabled = false;
     }
 
     // called when the puzzle is passed.
@@ -71,7 +127,23 @@ public class PuzzleArea : MonoBehaviour
         player.EnableCinematicCamera();
     }
 
-    // public void OnPuzzleFail().
+    // called when the player fails the puzzle.
+    // this returns the puzzle back to the start.
+    public void OnPuzzleFail()
+    {
+        // reactivate the gates.
+        if (enterGate != null)
+            enterGate.SetActive(true);
+
+        if (exitGate != null)
+            exitGate.SetActive(true);
+
+        // resets the car position.
+        player.car.transform.position = areaEntrance.carResetPos;
+
+        // mouse is enabled again.
+        player.mouseEnabled = true;
+    }
 
     public void ChangeCameraSettings()
     {

@@ -8,15 +8,22 @@ public class Player : MonoBehaviour
     // the player's rail car.
     public RailCar car;
 
+    // public PuzzleArea area;
+    
     // mouse 3D for interacting with objects, and the tile interacted with.
     public Mouse3D mouse3D = null;
     public PuzzleTile clickedTile = null;
 
-    // the cinematic camera.
-    public Camera cineCam;
+    // cameras
+    public Camera cineCam; // the cinematic camera.
+    public Camera puzzleCam; // the puzzle camera.
 
-    // the puzzle camera.
-    public Camera puzzleCam;
+    // if 'true', the player is locked in a puzzle.
+    public bool inPuzzle;
+
+    // if 'true', the mouse functions are enabled.
+    public bool mouseEnabled = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +35,14 @@ public class Player : MonoBehaviour
         // finds mouse 3D.
         if (mouse3D == null)
             mouse3D = FindObjectOfType<Mouse3D>();
+
+        // if the cinematic camera does not exist, use the main camera.
+        if (cineCam == null)
+            cineCam = Camera.main;
+
+        // if the puzzle camera does not exist, use the main camera.
+        if (puzzleCam == null)
+            puzzleCam = Camera.main;
     }
 
     // swaps between the cinematic camera and 
@@ -53,6 +68,9 @@ public class Player : MonoBehaviour
     {
         puzzleCam.enabled = false;
         cineCam.enabled = true;
+
+        inPuzzle = false;
+        mouseEnabled = false;
     }
 
     // enables the puzzle camera.
@@ -60,29 +78,45 @@ public class Player : MonoBehaviour
     {
         cineCam.enabled = false;
         puzzleCam.enabled = true;
+        
+        inPuzzle = true;
+        mouseEnabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // goes through mouse inputs.
-        if(mouse3D.clickedObject != null && clickedTile == null) // mouse down
+        // if in a puzzle
+        if(inPuzzle && mouseEnabled)
         {
-            // tries to grab component.
-            if(mouse3D.clickedObject.TryGetComponent<PuzzleTile>(out clickedTile))
+            // interacting with puzzle tiles.
+            // goes through mouse inputs.
+            if (mouse3D.clickedObject != null && clickedTile == null) // mouse down
             {
-                clickedTile.OnMouseButtonDown(mouse3D.mouseWorldPosition);
+                // tries to grab component.
+                if (mouse3D.clickedObject.TryGetComponent<PuzzleTile>(out clickedTile))
+                {
+                    clickedTile.OnMouseButtonDown(mouse3D.mouseWorldPosition);
+                }
+            }
+            else if (mouse3D.clickedObject != null && clickedTile != null) // mouse held
+            {
+                if (mouse3D.clickedObject.gameObject == clickedTile.gameObject)
+                    clickedTile.OnMouseButtonHeld(mouse3D.mouseWorldPosition);
+            }
+            else if (mouse3D.clickedObject == null && clickedTile != null) // mouse released.
+            {
+                clickedTile.OnMouseButtonReleased(mouse3D.mouseWorldPosition);
+                clickedTile = null;
             }
         }
-        else if(mouse3D.clickedObject != null && clickedTile != null) // mouse held
+
+        // temp (moving around the player).
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(mouse3D.clickedObject.gameObject == clickedTile.gameObject)
-                clickedTile.OnMouseButtonHeld(mouse3D.mouseWorldPosition);
+
         }
-        else if(mouse3D.clickedObject == null && clickedTile != null) // mouse released.
-        {
-            clickedTile.OnMouseButtonReleased(mouse3D.mouseWorldPosition);
-            clickedTile = null;
-        }
+
+
     }
 }

@@ -11,6 +11,9 @@ public class PuzzleAreaEntrance : MonoBehaviour
     // rail car that's entering the area. Only one car can be locked at a time.
     public RailCar car;
 
+    // the reset position for the car.
+    public Vector3 carResetPos;
+
     // if 'true', the entrance locks cars.
     public bool lockCar = true;
 
@@ -68,6 +71,9 @@ public class PuzzleAreaEntrance : MonoBehaviour
         // lock car in the entrance's position.
         if (moveLockedCar)
             car.transform.position = transform.position;
+
+        // saves the reset position.
+        carResetPos = car.transform.position;
 
         area.OnPuzzleStart();
     }
