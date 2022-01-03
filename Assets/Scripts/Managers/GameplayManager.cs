@@ -20,7 +20,7 @@ public class GameplayManager : MonoBehaviour
     // called when the goal is reached.
     public void OnGoalReached()
     {
-        // OnGameEnd();
+        OnGameEnd();
     }
 
     // called wehn the game ends.
