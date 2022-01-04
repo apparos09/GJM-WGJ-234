@@ -4,6 +4,7 @@ using UnityEngine;
 
 // the puzzle area.
 // NOTE: MAKE SURE THE WALLS ARE BIG ENOUGH THAT TILES THAT DON'T GO THROUGH.
+// TODO: add in opton for hiding tiles.
 public class PuzzleArea : MonoBehaviour
 {
     // if 'true', an attempt is being made to go through the stage.
@@ -29,6 +30,9 @@ public class PuzzleArea : MonoBehaviour
 
     // the gate for exiting the puzzle.
     public PuzzleGate exitGate;
+
+    // parent object that hides tiles.
+    public GameObject tiles;
 
     // camera details
     [Header("Camera")]
@@ -90,6 +94,17 @@ public class PuzzleArea : MonoBehaviour
                     exitGate = gates[gates.Length - 1];
             }
         }
+
+        // finds list of tiles.
+        if (tiles == null)
+        {
+            // finds tiles.
+            Transform temp = transform.Find("Tiles");
+
+            // saves object.
+            if (temp != null)
+                tiles = temp.gameObject;
+        }
     }
 
     // called when entering the area.
@@ -97,6 +112,7 @@ public class PuzzleArea : MonoBehaviour
     {
         // puzzle has started.
         inAttempt = false;
+        ShowTiles();
 
         // enables the puzzle camera.
         player.EnablePuzzleCamera();
@@ -135,6 +151,7 @@ public class PuzzleArea : MonoBehaviour
 
         // currently being tried.
         inAttempt = true;
+        ShowTiles();
 
         // deactivate the gates.
         if (enterGate != null)
@@ -152,6 +169,15 @@ public class PuzzleArea : MonoBehaviour
     public void OnPuzzlePass()
     {
         inAttempt = false;
+        ShowTiles();
+
+
+        // reset player transform and rigidbody.
+        player.rigidBody.velocity = Vector3.zero;
+        player.rigidBody.angularVelocity = Vector3.zero;
+        player.transform.rotation = Quaternion.identity;
+
+        // player cinematic
         player.EnableCinematicCamera();
 
         // removes the current puzzle.
@@ -164,6 +190,7 @@ public class PuzzleArea : MonoBehaviour
     {
         // reset puzzle
         inAttempt = false;
+        ShowTiles();
 
         // reactivate the gates.
         if (enterGate != null)
@@ -171,6 +198,11 @@ public class PuzzleArea : MonoBehaviour
 
         if (exitGate != null)
             exitGate.gameObject.SetActive(true);
+
+        // reset player transform and rigidbody.
+        player.rigidBody.velocity = Vector3.zero;
+        player.rigidBody.angularVelocity = Vector3.zero;
+        player.transform.rotation = Quaternion.identity;
 
         // resets the car position, its indexes, its time, and pauses its movement.
         player.car.transform.position = areaEntrance.carResetPos;
@@ -183,7 +215,63 @@ public class PuzzleArea : MonoBehaviour
         player.mouseEnabled = true;
     }
 
-    // TODO: add reset function
+    // resets the puzzle.
+    public void ResetPuzzle()
+    {
+        // grabs all tiles.
+        PuzzleTile[] tiles = GetComponentsInChildren<PuzzleTile>(true);
+
+        // resets all the tiles.
+        foreach (PuzzleTile tile in tiles)
+            tile.ResetTile();
+
+
+        inAttempt = false;
+        ShowTiles();
+
+    }
+
+
+    // returns 'true' if the tiles are visible.
+    public bool GetTilesVisible()
+    {
+        if (tiles != null)
+            return tiles.activeSelf;
+        else
+            return true;
+    }
+
+    // hides/shows tiles
+    public void SetTilesVisible(bool visible)
+    {
+        if (tiles != null)
+        {
+            // only works if not attempting to clear the level.
+            if (!inAttempt)
+                tiles.SetActive(visible);
+            else
+                tiles.SetActive(true);
+        }
+            
+    }
+
+    // hides tiles.
+    public void HideTiles()
+    {
+        SetTilesVisible(false);
+    }
+
+    // show tiles.
+    public void ShowTiles()
+    {
+        SetTilesVisible(true);
+    }
+
+    // toggle visiblity
+    public void ToggleTilesVisible()
+    {
+        SetTilesVisible(!GetTilesVisible());
+    }
 
     public void ChangeCameraSettings()
     {

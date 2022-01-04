@@ -34,9 +34,11 @@ public abstract class PuzzleTile : MonoBehaviour
             gameObject.AddComponent<Rigidbody>();
 
         // no puzzle area saved, so check for component on parent.
-        if(puzzleArea == null && transform.parent != null)
+        // if(puzzleArea == null && transform.parent != null)
+        if (puzzleArea == null)
         {
-            puzzleArea = transform.parent.gameObject.GetComponent<PuzzleArea>();
+            // puzzleArea = transform.parent.gameObject.GetComponent<PuzzleArea>();
+            puzzleArea = transform.GetComponentInParent<PuzzleArea>();
         }
 
         // saves the initial values.

@@ -5,6 +5,9 @@ using UnityEngine;
 // the player, which is used to click on and interact with items.
 public class Player : MonoBehaviour
 {
+    // player's rigidbody.
+    public Rigidbody rigidBody;
+
     // the player's rail car.
     public RailCar car;
 
@@ -31,6 +34,10 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // grabs rigidbody if not set.
+        if (rigidBody == null)
+            rigidBody = GetComponent<Rigidbody>();
+
         // grabs the player's rail car. There should only be one rail car.
         if (car == null)
             car = FindObjectOfType<RailCar>();
@@ -93,6 +100,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // change camera mode.
+        if(inPuzzle && puzzleCam != null)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+                puzzleCam.orthographic = !puzzleCam.orthographic;
+        }
+
         // if in a puzzle
         if(inPuzzle && mouseEnabled && !manager.paused)
         {
@@ -121,6 +135,16 @@ public class Player : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 manager.currentPuzzle.OnPuzzleTry();
+            }
+
+            // hide tiles
+            if(Input.GetKeyDown(KeyCode.H)) // hide on key down.
+            {
+                manager.currentPuzzle.HideTiles();
+            }
+            else if(Input.GetKeyUp(KeyCode.H)) // show on key up.
+            {
+                manager.currentPuzzle.ShowTiles();
             }
         }
     }
