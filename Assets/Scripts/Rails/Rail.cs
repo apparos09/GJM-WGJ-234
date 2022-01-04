@@ -17,6 +17,8 @@ public class Rail : MonoBehaviour
     // the previous rail, which is locked to the start of the rail.
     public Rail prevRail;
 
+    LineRenderer lineRender;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,9 @@ public class Rail : MonoBehaviour
         {
             node.SetRail(this);
         }
+
+
+        lineRender = new LineRenderer();
     }
 
     // returns the index of the node. If the node isn't in the list, it returns a -1.

@@ -49,14 +49,13 @@ public class PuzzleAreaExit : MonoBehaviour
     // called when entering the exit area.
     public void OnExitEnter()
     {
+        area.OnPuzzlePass();
     }
 
     // // called when leaving the exit area.
     public void OnExitExit()
     {
-        car = null;
-
-        area.OnPuzzlePass();
+        car = null;     
     }
 
     // Update is called once per frame

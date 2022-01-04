@@ -80,12 +80,6 @@ public class PuzzleArea : MonoBehaviour
                     exitGate = gates[gates.Length - 1];
             }
         }
-
-        // camera positioning block.
-        if(camPosBlock != null)
-        {
-            player.puzzleCam.transform.position = camPosBlock.transform.position;
-        }
     }
 
     // called when entering the area.
@@ -93,6 +87,12 @@ public class PuzzleArea : MonoBehaviour
     {
         // enables the puzzle camera.
         player.EnablePuzzleCamera();
+
+        // camera positioning block.
+        if (camPosBlock != null)
+        {
+            player.puzzleCam.transform.position = camPosBlock.transform.position;
+        }
 
         // if camera settings should be adjusted when the puzzle starts.
         if (adjustCamSettings)
