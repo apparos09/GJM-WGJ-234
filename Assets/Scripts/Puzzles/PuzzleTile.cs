@@ -17,6 +17,7 @@ public abstract class PuzzleTile : MonoBehaviour
     public PuzzleArea puzzleArea;
 
     // initial transformation.
+    protected float resetVelocityY = 30.0F; // velocity for resetting tile.
     private Vector3 initialPos = Vector3.zero;
     private Quaternion initialRot = Quaternion.identity;
     private Vector3 initialScl = Vector3.one;
@@ -70,11 +71,16 @@ public abstract class PuzzleTile : MonoBehaviour
         transform.position = initialPos;
         transform.rotation = initialRot;
         transform.localScale = initialScl;
+
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        
+        // if the tile has fallen off the stage, reset it.
+        if (Mathf.Abs(rigidBody.velocity.y) > resetVelocityY)
+            ResetTile();
     }
 }

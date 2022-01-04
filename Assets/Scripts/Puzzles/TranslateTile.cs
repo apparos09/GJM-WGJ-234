@@ -5,9 +5,6 @@ using UnityEngine;
 // has the player grab and translate the tile.
 public class TranslateTile : PuzzleTile
 {
-    // the base rotation of the object.
-    private Quaternion initialRot;
-
     // mouse 3D object.
     // private Mouse3D mouse3D;
 
@@ -19,15 +16,13 @@ public class TranslateTile : PuzzleTile
     public float maxMove = 100.0F;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
-
-        initialRot = transform.rotation;
     }
 
     // tile has collided with something.
-    protected void OnCollisionEnter(Collision collision)
+    new protected void OnCollisionEnter(Collision collision)
     {
         // parent collision check.
         base.OnCollisionEnter(collision);
@@ -84,9 +79,8 @@ public class TranslateTile : PuzzleTile
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        // tile shouldn't rotate.
-        transform.rotation = initialRot;
+        base.Update();
     }
 }

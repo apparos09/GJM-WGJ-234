@@ -8,7 +8,7 @@ using UnityEngine;
 public class PuzzleGate : PuzzleTile
 {
     // Start is called before the first frame update
-    protected void Start()
+    protected new void Start()
     {
         base.Start();
     }
@@ -40,8 +40,8 @@ public class PuzzleGate : PuzzleTile
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        
+        base.Update();
     }
 }

@@ -8,6 +8,10 @@ public class Goal : MonoBehaviour
     // manager for the gameplay
     public GameplayManager manager;
 
+    // TODO: implement
+    // the bounds of the goal's hit area, which be used for the distance.
+    // public float distRadius = 0;
+
     // Start is called before the first frame update
     void Start()
     {

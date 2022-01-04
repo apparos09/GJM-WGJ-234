@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     // if 'true', the mouse functions are enabled.
     public bool mouseEnabled = true;
 
+    // the manager for the game.
+    public GameplayManager manager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,10 @@ public class Player : MonoBehaviour
         // if the puzzle camera does not exist, use the main camera.
         if (puzzleCam == null)
             puzzleCam = Camera.main;
+
+        // finds the gameplay manager.
+        if (manager == null)
+            manager = FindObjectOfType<GameplayManager>();
     }
 
     // swaps between the cinematic camera and 
@@ -87,7 +94,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // if in a puzzle
-        if(inPuzzle && mouseEnabled)
+        if(inPuzzle && mouseEnabled && !manager.paused)
         {
             // interacting with puzzle tiles.
             // goes through mouse inputs.
@@ -109,14 +116,12 @@ public class Player : MonoBehaviour
                 clickedTile.OnMouseButtonReleased(mouse3D);
                 clickedTile = null;
             }
+
+            // start puzzle
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                manager.currentPuzzle.OnPuzzleTry();
+            }
         }
-
-        // temp (moving around the player).
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-
-        }
-
-
     }
 }

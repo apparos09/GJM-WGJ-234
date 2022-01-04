@@ -18,13 +18,13 @@ public class AutoTranslateTile : PuzzleTile
     public bool moving = false;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
     }
 
     // if entering a collision with a wall.
-    protected void OnCollisionEnter(Collision collision)
+    protected new void OnCollisionEnter(Collision collision)
     {
         // parent collision check.
         base.OnCollisionEnter(collision);
@@ -54,10 +54,12 @@ public class AutoTranslateTile : PuzzleTile
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        base.Update();
+
         // if the tile is moving.
-        if(moving)
+        if (moving)
         {
             // rigidBody.AddForce(direction)
             transform.Translate(direction * axis * speed * Time.deltaTime);

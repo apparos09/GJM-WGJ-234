@@ -6,8 +6,14 @@ using UnityEngine;
 // NOTE: MAKE SURE THE WALLS ARE BIG ENOUGH THAT TILES THAT DON'T GO THROUGH.
 public class PuzzleArea : MonoBehaviour
 {
+    // if 'true', an attempt is being made to go through the stage.
+    public bool inAttempt = false;
+
     // the player object.
     public Player player;
+
+    // the gameplay manager.
+    public GameplayManager manager;
 
     // the puzzle
     [Header("Puzzle")]
@@ -47,6 +53,10 @@ public class PuzzleArea : MonoBehaviour
         if(player == null)
             player = FindObjectOfType<Player>();
 
+        // manager not set.
+        if (manager == null)
+            manager = FindObjectOfType<GameplayManager>();
+
         // looks for entrance in children.
         if (areaEntrance == null)
             areaEntrance = GetComponentInChildren<PuzzleAreaEntrance>();
@@ -85,8 +95,14 @@ public class PuzzleArea : MonoBehaviour
     // called when entering the area.
     public void OnPuzzleStart()
     {
+        // puzzle has started.
+        inAttempt = false;
+
         // enables the puzzle camera.
         player.EnablePuzzleCamera();
+
+        // gives manager the current puzzle.
+        manager.currentPuzzle = this;
 
         // camera positioning block.
         if (camPosBlock != null)
@@ -110,6 +126,16 @@ public class PuzzleArea : MonoBehaviour
     // puzzle pieces cannot moved at this state.
     public void OnPuzzleTry()
     {
+        // if the player is going through a puzzle attempt.
+        if (inAttempt)
+        {
+            Debug.Log("Currently trying the puzzle.");
+            return;
+        }
+
+        // currently being tried.
+        inAttempt = true;
+
         // deactivate the gates.
         if (enterGate != null)
             enterGate.gameObject.SetActive(false);
@@ -125,13 +151,20 @@ public class PuzzleArea : MonoBehaviour
     // called when the puzzle is passed.
     public void OnPuzzlePass()
     {
+        inAttempt = false;
         player.EnableCinematicCamera();
+
+        // removes the current puzzle.
+        manager.currentPuzzle = null;
     }
 
     // called when the player fails the puzzle.
     // this returns the puzzle back to the start.
     public void OnPuzzleFail()
     {
+        // reset puzzle
+        inAttempt = false;
+
         // reactivate the gates.
         if (enterGate != null)
             enterGate.gameObject.SetActive(true);
