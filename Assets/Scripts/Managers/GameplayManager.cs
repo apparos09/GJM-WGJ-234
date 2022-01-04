@@ -31,13 +31,19 @@ public class GameplayManager : MonoBehaviour
     public float startDist;
 
     // user interface elements for the UI.
+    public bool enabledResults = true;
     public GameObject resultsUI;
     public GameObject winUI;
     public GameObject loseUI;
 
     // if 'true', the game is paused.
     public bool paused = false;
+
+    // time scale for delta time
     private float baseTimeScale;
+
+    // if set to 'true', a time over results in the game ending.
+    public bool timeGameOver = true;
 
     // Start is called before the first frame update
     void Start()
@@ -97,13 +103,40 @@ public class GameplayManager : MonoBehaviour
     // called when the goal is reached.
     public void OnGoalReached()
     {
+        // TODO: add in animation if time allows.
+
         OnGameEnd(true);
+
     }
 
     // called wehn the game ends.
     public void OnGameEnd(bool won)
     {
-        SceneManager.LoadScene("TitleScene");
+        // results UI available.
+        if (resultsUI != null && enabledResults)
+        {
+            resultsUI.SetActive(true);
+
+            // results interface assets available.
+            if(winUI != null && loseUI != null)
+            {
+                if (won)
+                {
+                    loseUI.SetActive(false);
+                    winUI.SetActive(true);
+                }
+                else
+                {
+                    winUI.SetActive(false);
+                    loseUI.SetActive(true);
+                }
+            }
+
+        } // no results UI. Return to menu.
+        else
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 
     // return to the main menu.
@@ -130,7 +163,7 @@ public class GameplayManager : MonoBehaviour
             
 
         // time's up.
-        if (timer.IsFinished())
+        if (timer.IsFinished() && timeGameOver)
             OnGameEnd(false);
     }
 }

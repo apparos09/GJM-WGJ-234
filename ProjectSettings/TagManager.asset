@@ -8,6 +8,7 @@ TagManager:
   - Camera
   - Puzzle Tile
   - Gate
+  - Puzzle Area
   layers:
   - Default
   - TransparentFX
