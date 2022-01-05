@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 814005570674828268}
   - component: {fileID: 6893467921841845970}
   m_Layer: 0
-  m_Name: Unmovable Block
+  m_Name: Unmovable Block (Small)
   m_TagString: Puzzle Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
