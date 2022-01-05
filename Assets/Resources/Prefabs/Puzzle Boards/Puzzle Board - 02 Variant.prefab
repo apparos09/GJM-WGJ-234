@@ -258,7 +258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4169198758033253568, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: direction.y
-      value: -1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4169198758033253568, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: direction.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1657462210718598902, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_Name

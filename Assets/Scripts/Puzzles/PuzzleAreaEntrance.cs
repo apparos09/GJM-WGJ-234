@@ -14,6 +14,9 @@ public class PuzzleAreaEntrance : MonoBehaviour
     // the reset position for the car.
     public Vector3 carResetPos;
 
+    // the rail node that's in the puzzle area entrance.
+    private RailNode railNode = null;
+
     // reset for car's start index.
     public int carResetStartIndex = 0;
 
@@ -52,6 +55,32 @@ public class PuzzleAreaEntrance : MonoBehaviour
                 OnEntranceEnter();
             }    
         }
+
+        // the rail node.
+        RailNode rn;
+
+        // rail node is set to null. Tries to get the rail node.
+        if (other.gameObject.TryGetComponent<RailNode>(out rn))
+        {
+            // checks for rail node.
+            if (railNode != null)
+            {
+                int rnIndex = rn.GetNodeIndex();
+
+                // uses lower node.
+                if (rnIndex < railNode.GetNodeIndex() && rnIndex >= 0)
+                {
+                    carResetStartIndex = rnIndex;
+                    carResetEndIndex = carResetStartIndex + 1;
+                }
+            }
+            else
+            {
+                railNode = rn;
+                carResetStartIndex = railNode.GetNodeIndex();
+                carResetEndIndex = carResetStartIndex + 1;
+            }
+        }
     }
 
     // called when leaving the trigger.
@@ -80,8 +109,8 @@ public class PuzzleAreaEntrance : MonoBehaviour
 
         // saves the reset position.
         carResetPos = car.transform.position;
-        carResetStartIndex = car.startNodeIndex;
-        carResetEndIndex = car.endNodeIndex;
+        // carResetStartIndex = car.startNodeIndex;
+        // carResetEndIndex = car.endNodeIndex;
 
         area.OnPuzzleStart();
     }

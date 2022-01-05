@@ -65,6 +65,35 @@ public class RailCar : MonoBehaviour
         }
     }
 
+    // start node.
+    public int StartNodeIndex
+    {
+        get
+        {
+            return startNodeIndex;
+        }
+
+        set
+        {
+            startNodeIndex = (value < 0) ? 0 : value;
+        }
+    }
+
+    // end node.
+    public int EndNodeIndex
+    {
+        get
+        {
+            return endNodeIndex;
+        }
+
+        set
+        {
+            endNodeIndex = (value < 0) ? 0 : value;
+        }
+    }
+
+
     // adds a rail for the car to go along.
     public void AddRail(Rail rail)
     {

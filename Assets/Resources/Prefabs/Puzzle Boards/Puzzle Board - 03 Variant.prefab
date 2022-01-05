@@ -496,6 +496,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5804647657850529884, guid: 25d8787af791f4d4cb23617952d4b338, type: 3}
       propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804647657850529884, guid: 25d8787af791f4d4cb23617952d4b338, type: 3}
+      propertyPath: direction.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

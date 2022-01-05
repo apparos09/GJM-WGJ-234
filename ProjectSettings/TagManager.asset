@@ -9,6 +9,7 @@ TagManager:
   - Puzzle Tile
   - Gate
   - Puzzle Area
+  - Floor
   layers:
   - Default
   - TransparentFX

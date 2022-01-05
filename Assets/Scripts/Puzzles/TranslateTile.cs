@@ -35,7 +35,7 @@ public class TranslateTile : PuzzleTile
     public override void OnMouseButtonDown(Mouse3D mouse3D)
     {
         // this.mouse3D = mouse3D;
-        mouseWorldPos = mouse3D.mouseWorldPosition;
+        mouseWorldPos = mouse3D.mouseWorldPosition; 
     }
 
     // mouse held (moves on drag)
@@ -75,7 +75,7 @@ public class TranslateTile : PuzzleTile
     // mouse released.
     public override void OnMouseButtonReleased(Mouse3D mouse3D)
     {
-        mouse3D = null;
+        // mouse3D = null;
     }
 
     // Update is called once per frame
