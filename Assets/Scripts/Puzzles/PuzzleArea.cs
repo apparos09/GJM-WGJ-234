@@ -218,6 +218,9 @@ public class PuzzleArea : MonoBehaviour
     // resets the puzzle.
     public void ResetPuzzle()
     {
+        // show all tiles.
+        ShowTiles();
+
         // grabs all tiles.
         PuzzleTile[] tiles = GetComponentsInChildren<PuzzleTile>(true);
 
@@ -227,7 +230,6 @@ public class PuzzleArea : MonoBehaviour
 
 
         inAttempt = false;
-        ShowTiles();
 
     }
 

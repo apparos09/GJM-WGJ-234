@@ -44,8 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d667de6fd72da458f21e3146acebc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   goal: {fileID: 0}
+  currentPuzzle: {fileID: 0}
   timer: {fileID: 0}
+  timerText: {fileID: 0}
+  progessSlider: {fileID: 0}
+  startDist: 0
+  enabledResults: 1
+  resultsUI: {fileID: 0}
+  winUI: {fileID: 0}
+  loseUI: {fileID: 0}
+  paused: 0
+  timeGameOver: 1
 --- !u!114 &2636639478115612804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237ef499c0de39a4bb0e131a085d7a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerStart: 100
+  timerStart: 300
   currentTime: 0
   activateOnStart: 1
   paused: 0

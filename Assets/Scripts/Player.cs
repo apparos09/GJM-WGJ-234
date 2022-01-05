@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
                 clickedTile = null;
             }
 
-            // start puzzle
+            // attempt puzzle
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 manager.currentPuzzle.OnPuzzleTry();
@@ -145,6 +145,12 @@ public class Player : MonoBehaviour
             else if(Input.GetKeyUp(KeyCode.H)) // show on key up.
             {
                 manager.currentPuzzle.ShowTiles();
+            }
+
+            // resets the puzzle
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                manager.currentPuzzle.ResetPuzzle();
             }
         }
     }

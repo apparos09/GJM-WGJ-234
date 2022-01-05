@@ -16,6 +16,14 @@ public class GameplayManager : MonoBehaviour
     // the current puzzle.
     public PuzzleArea currentPuzzle = null;
 
+    // if 'true', the game is paused.
+    public bool paused = false;
+
+    // time scale for delta time
+    private float baseTimeScale;
+
+    // if set to 'true', a time over results in the game ending.
+    public bool timeGameOver = true;
     [Header("Interface")]
 
     // the timer
@@ -30,20 +38,22 @@ public class GameplayManager : MonoBehaviour
     // the starting distance between the player and the goal.
     public float startDist;
 
+    [Header("Interface/Results")]
+
     // user interface elements for the UI.
     public bool enabledResults = true;
+    
+    // the results user interface
     public GameObject resultsUI;
+    
+    // the win user interface
     public GameObject winUI;
+    
+    // the lose user interface
     public GameObject loseUI;
 
-    // if 'true', the game is paused.
-    public bool paused = false;
-
-    // time scale for delta time
-    private float baseTimeScale;
-
-    // if set to 'true', a time over results in the game ending.
-    public bool timeGameOver = true;
+    // the results time text
+    public Text resultsTimeText;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +84,10 @@ public class GameplayManager : MonoBehaviour
 
         // saves the base time scale.
         baseTimeScale = Time.timeScale;
+
+        // hides the results user interface.
+        if (resultsUI != null)
+            resultsUI.SetActive(false);
     }
 
     // pause the game.
@@ -131,6 +145,10 @@ public class GameplayManager : MonoBehaviour
                     loseUI.SetActive(true);
                 }
             }
+
+            // updates the result time.
+            if (resultsTimeText != null)
+                resultsTimeText.text = (timer.timerStart - timer.currentTime).ToString("F3");
 
         } // no results UI. Return to menu.
         else
