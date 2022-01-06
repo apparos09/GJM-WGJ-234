@@ -126,6 +126,10 @@ public class GameplayManager : MonoBehaviour
     // called wehn the game ends.
     public void OnGameEnd(bool won)
     {
+        // pauses the timer since the game is over.
+        if (timer != null)
+            timer.PauseTimer();
+
         // results UI available.
         if (resultsUI != null && enabledResults)
         {

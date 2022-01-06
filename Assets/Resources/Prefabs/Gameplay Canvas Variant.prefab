@@ -2167,6 +2167,18 @@ PrefabInstance:
       propertyPath: m_EffectDistance.y
       value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 2486305733034369667, guid: d1b88ad9a469bbf4ab3fe9962e46fe0c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.09996435
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486305733034369667, guid: d1b88ad9a469bbf4ab3fe9962e46fe0c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6107301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486305733034369667, guid: d1b88ad9a469bbf4ab3fe9962e46fe0c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.735849
+      objectReference: {fileID: 0}
     - target: {fileID: 2486305733526682818, guid: d1b88ad9a469bbf4ab3fe9962e46fe0c, type: 3}
       propertyPath: m_Name
       value: Progress Bar (UI)
