@@ -195,7 +195,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'INSTRUCTIONS
 
-    *******************'
+    **********************'
 --- !u!222 &86731279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -410,7 +410,8 @@ MonoBehaviour:
   m_Text: It's almost New Years, which means it's time for celebrations. However,
     a bit more power is needed to make everything go off. You'll need to connect
     the wires for the power to reach the top of the tower before the clock strikes
-    for New Years.
+    for New Years. Red blocks cannot be moved, blue blocks slide along a set axis
+    upon being clicked on, and green blocks are dragged with the left mouse button.
 --- !u!222 &215516194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2148,10 +2149,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: It's almost New Years, which means it's time for celebrations. However,
-    a bit more power is needed to make everything go off. You'll need to connect
-    the wires for the power to reach the top of the tower before the clock strikes
-    for New Years.
+  m_Text: '[Left Mouse Button + Drag] to Interact with Tiles
+
+    [SPACE or Click
+    Gate] to Attempt Puzzle
+
+    Hold [H] to Hide Tiles
+
+    [R] to Reset the Current
+    Puzzle
+
+    [P] to Change Puzzle Camera'
 --- !u!222 &1452833837
 CanvasRenderer:
   m_ObjectHideFlags: 0

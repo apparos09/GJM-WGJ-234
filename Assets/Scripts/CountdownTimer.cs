@@ -6,7 +6,7 @@ using UnityEngine;
 public class CountdownTimer : MonoBehaviour
 {
     // the start of the timer.
-    public float timerStart = 300.0F;
+    public float timerStart = 240.0F;
 
     // the current timer.
     public float currentTime = 0.0F;

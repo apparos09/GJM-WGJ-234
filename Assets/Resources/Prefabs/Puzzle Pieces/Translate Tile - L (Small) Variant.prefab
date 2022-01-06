@@ -30,7 +30,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &905670681612705840
 Transform:
   m_ObjectHideFlags: 0
@@ -110,6 +110,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (L)
       objectReference: {fileID: 0}
+    - target: {fileID: 2048314515366227527, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2048314515764814949, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -164,7 +168,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2048314515764814954, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
       propertyPath: m_Name
-      value: Translate Tile - L Variant
+      value: Translate Tile - L (Small) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060500970551236586, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_Name
+      value: GJM-WGJ-234-Tile_Green (L)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
@@ -178,3 +194,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2048314515764814949, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
   m_PrefabInstance: {fileID: 944432681221857586}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5791122537375565031
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1258298381488325975}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}
+      propertyPath: m_Name
+      value: GJM-WGJ-234-Tile_Green (BR)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df51b5f770e64804bbde2daf8adec7d5, type: 3}

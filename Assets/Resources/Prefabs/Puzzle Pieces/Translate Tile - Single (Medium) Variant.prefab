@@ -71,5 +71,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Translate Tile - Single (Medium) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680035396838067536, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d3ba4b8a4c684047a0731ee926fd802, type: 3}

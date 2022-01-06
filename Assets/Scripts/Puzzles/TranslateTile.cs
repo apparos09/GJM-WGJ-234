@@ -57,7 +57,7 @@ public class TranslateTile : PuzzleTile
         RaycastHit hitInfo;
 
         // cast the ray.
-        bool rayHit = Physics.Raycast(ray, out hitInfo, 1.0F);
+        bool rayHit = Physics.Raycast(ray, out hitInfo, 0.1F);
 
         // translates the object if there is room.
         if(!rayHit)
@@ -66,7 +66,11 @@ public class TranslateTile : PuzzleTile
             if (move.magnitude > maxMove)
                 move = Vector3.ClampMagnitude(move, maxMove);
 
+            // return to default orientation before applying translation.
+            Quaternion temp = transform.rotation;
+            transform.rotation = Quaternion.identity;
             transform.Translate(move);
+            transform.rotation = temp;
         }
 
         mouseWorldPos = mouse3D.mouseWorldPosition;

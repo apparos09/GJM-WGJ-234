@@ -30,7 +30,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8322186630315379208
 Transform:
   m_ObjectHideFlags: 0
@@ -95,6 +95,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &3339703211400799035
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7370513285389231715}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
+      propertyPath: m_Name
+      value: GJM-WGJ-234-Tile_Blue (BR)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 90f5eeeba50f2c3408db0e4173027f41, type: 3}
 --- !u!1001 &5690023745435286818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,9 +171,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1657462210718598902, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_Name
       value: Auto Translate Tile - L Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787689620083215169, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_Name
+      value: GJM-WGJ-234-Tile_Blue (L)
       objectReference: {fileID: 0}
     - target: {fileID: 2935877170399615809, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_RootOrder

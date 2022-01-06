@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1657462210718598902, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_Name
-      value: Auto Translate Tile - Single (Small 1) Variant
+      value: Auto Translate Tile - Long (Small 1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2935877170399615809, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_RootOrder

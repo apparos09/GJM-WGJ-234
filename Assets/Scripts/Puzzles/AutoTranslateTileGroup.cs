@@ -20,6 +20,10 @@ public class AutoTranslateTileGroup : PuzzleTile
     // group of tiles to also translate.
     public List<AutoTranslateTileGroup> group = new List<AutoTranslateTileGroup>();
 
+    // uses for resettng.
+    private Vector3 initialDirec;
+    private int initAxis;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -64,6 +68,16 @@ public class AutoTranslateTileGroup : PuzzleTile
     public override void OnMouseButtonReleased(Mouse3D mouse3D)
     {
         // throw new System.NotImplementedException();
+    }
+
+    // resets the tile.
+    public override void ResetTile()
+    {
+        base.ResetTile();
+
+        moving = false;
+        direction = initialDirec;
+        axis = initAxis;
     }
 
     // Update is called once per frame

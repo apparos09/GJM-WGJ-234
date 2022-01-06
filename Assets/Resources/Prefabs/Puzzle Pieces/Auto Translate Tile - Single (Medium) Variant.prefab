@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406520084113314299, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1657462210718598902, guid: 7ec87c1ba34accb48af395d739364381, type: 3}
       propertyPath: m_Name
       value: Auto Translate Tile - Single (Medium) Variant

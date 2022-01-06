@@ -17,10 +17,17 @@ public class AutoTranslateTile : PuzzleTile
     // movement.
     public bool moving = false;
 
+    // uses for resettng.
+    private Vector3 initialDirec;
+    private int initAxis;
+
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
+
+        initialDirec = direction;
+        initAxis = axis;
     }
 
     // if entering a collision with a wall.
@@ -30,8 +37,11 @@ public class AutoTranslateTile : PuzzleTile
         base.OnCollisionEnter(collision);
 
         // stop moving, and change direction.
-        moving = false;
-        axis *= -1;
+        if (!(collision.gameObject.tag == "Floor" && direction.y != 0))
+        {
+            moving = false;
+            axis *= -1;
+        } 
     }
 
     // mouse click.
@@ -53,6 +63,16 @@ public class AutoTranslateTile : PuzzleTile
         // throw new System.NotImplementedException();
     }
 
+    // resets the tile.
+    public override void ResetTile()
+    {
+        base.ResetTile();
+
+        moving = false;
+        direction = initialDirec;
+        axis = initAxis;
+    }
+
     // Update is called once per frame
     new void Update()
     {
@@ -62,7 +82,21 @@ public class AutoTranslateTile : PuzzleTile
         if (moving)
         {
             // rigidBody.AddForce(direction)
-            transform.Translate(direction * axis * speed * Time.deltaTime);
+            // return to default orientation before applying translation.
+
+            // reset rotation.
+            Quaternion temp = transform.rotation;
+            transform.rotation = Quaternion.identity;
+
+            // move
+            Vector3 move = direction * axis * speed * Time.deltaTime;
+            transform.Translate(move);
+
+            // return to default orientation.
+            transform.Translate(move);
+            transform.rotation = temp;
+
+            
         }
     }
 }
