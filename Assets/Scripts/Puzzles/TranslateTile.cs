@@ -53,11 +53,14 @@ public class TranslateTile : PuzzleTile
         move.y = 0.0F;
 
         // casts ray to see if the tile can move that way.
-        Ray ray = new Ray(transform.position, (move - transform.position).normalized);
+        Vector3 rayDirec = move - transform.position;
+        rayDirec.y = transform.position.y;
+
+        Ray ray = new Ray(transform.position, rayDirec.normalized);
         RaycastHit hitInfo;
 
         // cast the ray.
-        bool rayHit = Physics.Raycast(ray, out hitInfo, 0.1F);
+        bool rayHit = Physics.Raycast(ray, out hitInfo, 0.01F);
 
         // translates the object if there is room.
         if(!rayHit)

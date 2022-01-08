@@ -47,7 +47,16 @@ public class AutoTranslateTile : PuzzleTile
     // mouse click.
     public override void OnMouseButtonDown(Mouse3D mouse3D)
     {
-        moving = true;
+        // moving already set to true, so just flip axis.
+        if(moving == true)
+        {
+            axis *= -1;
+        }
+        else
+        {
+            moving = true;
+        }
+        
         // Debug.Log("Test");
     }
 
