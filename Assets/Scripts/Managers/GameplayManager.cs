@@ -83,6 +83,7 @@ public class GameplayManager : MonoBehaviour
         startDist = (goal.transform.position - player.transform.position).magnitude;
 
         // saves the base time scale.
+        Time.timeScale = 1.0F; // Normal time.
         baseTimeScale = Time.timeScale;
 
         // hides the results user interface.
@@ -157,7 +158,7 @@ public class GameplayManager : MonoBehaviour
         } // no results UI. Return to menu.
         else
         {
-            SceneManager.LoadScene("TitleScene");
+            ReturnToMenu();
         }
     }
 
@@ -165,6 +166,7 @@ public class GameplayManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        Time.timeScale = 1.0F; // Normal time.
         SceneManager.LoadScene("TitleScene");
     }
 

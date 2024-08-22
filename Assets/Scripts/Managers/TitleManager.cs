@@ -40,6 +40,8 @@ public class TitleManager : MonoBehaviour
                 // checks current screen size.
                 int screenY = Screen.height;
 
+                // There's no default, so it just gets saved as what it is normally.
+
                 // checks screen size to see default value.
                 switch (screenY)
                 {
@@ -51,7 +53,7 @@ public class TitleManager : MonoBehaviour
                         screenSizeDropdown.value = 2;
                         break;
 
-                    case 480: // small
+                    case 576: // small
                         screenSizeDropdown.value = 3;
                         break;
                 }
@@ -112,8 +114,8 @@ public class TitleManager : MonoBehaviour
                 Screen.fullScreen = false;
                 break;
 
-            case 3: // 854 X 480 (854 rounded up from 853.333)
-                Screen.SetResolution(854, 480, FullScreenMode.Windowed);
+            case 3: // 1024 X 576
+                Screen.SetResolution(1024, 576, FullScreenMode.Windowed);
                 Screen.fullScreen = false;
                 break;
         }
